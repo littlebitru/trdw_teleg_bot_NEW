@@ -7,6 +7,7 @@ This repository contains a simple Python application that relays TradingView ale
 * Listens for POST requests at the root path (`/`) and expects a JSON payload from TradingView.
 * Formats the received JSON as a Markdown code block and sends it to a specified Telegram chat.
 * Uses environment variables to store sensitive credentials (Telegram bot token and channel ID).
+* Optionally validates requests with a shared `WEBHOOK_SECRET` value.
 * Runs on port `5000` by default; you can override the host and port with `HOST` and `PORT` environment variables.
 
 ## Prerequisites
@@ -34,6 +35,7 @@ Set the following environment variables before running the bot:
 
 - `TELEGRAM_TOKEN`: the API token for your Telegram bot.
 - `TELEGRAM_CHAT_ID`: the channel username (prefixed with `@`) or numeric ID of your channel.
+- Optional `WEBHOOK_SECRET`: shared token required from TradingView requests.
 - Optional `HOST` and `PORT`: network interface and port for Flask to bind (defaults are `0.0.0.0` and `5000`).
 
 Example on Unix-like systems:
@@ -41,6 +43,8 @@ Example on Unix-like systems:
 ```bash
 export TELEGRAM_TOKEN="123456789:ABCDE_FGHIJKLMNOPQRSTUVWXYZ"
 export TELEGRAM_CHAT_ID="@mychannel"
+# Optional: require this secret from TradingView
+export WEBHOOK_SECRET="my_secret"
 python bot.py
 ```
 
@@ -49,6 +53,8 @@ On Windows PowerShell:
 ```powershell
 $env:TELEGRAM_TOKEN = '123456789:ABCDE_FGHIJKLMNOPQRSTUVWXYZ'
 $env:TELEGRAM_CHAT_ID = '@mychannel'
+# Optional: require this secret from TradingView
+$env:WEBHOOK_SECRET = 'my_secret'
 python bot.py
 ```
 
